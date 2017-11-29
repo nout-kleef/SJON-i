@@ -1,14 +1,12 @@
 function Mouth(scale, x, y, type) {
   this.scale = scale;
   /* @var emotion 
-   * dit is de beschrijving van de huidige emotie,
-   * wordt gebruikt om de juiste emotie te tonen
+   * this is the description of the current emotion,
+   * used to show emotion
    */
   this.emotion = typeof type === 'undefined' ? "neutral" : type;
   /* @var factor
-   * Factoren waarmee de dimensies van de originele
-   * afbeelding mee worden vermeningvuldigd voordat
-   * het wordt afgebeeld
+   * multiplication factors to scale original image before displaying
    */
   this.factor = {
     x: 0.0005 * this.scale,
@@ -21,13 +19,13 @@ function Mouth(scale, x, y, type) {
     };
   }
   /* @var talkingPhase
-   * houdt bij in welke fase de praat-animatie zich bevindt.
+   * keep track of which part of animation should be displayed
    */
   this.talkingPhase = 0;
 }
 
 /* @var inverseTalkingSpeed
- * bepaalt hoe snel de praat-animatie verloopt.
+ * determines speech animation speed
  */
 Mouth.prototype.inverseTalkingSpeed = 3;
 

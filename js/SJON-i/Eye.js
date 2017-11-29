@@ -1,14 +1,12 @@
 function Eye(scale, x, y, type) {
   this.scale = scale;
   /* @var emotion 
-   * dit is de beschrijving van de huidige emotie,
-   * wordt gebruikt om de juiste emotie te tonen
+   * this is the description of the current emotion,
+   * used to show emotion
    */
   this.emotion = typeof type === 'undefined' ? "neutral" : type;
   /* @var factor
-   * Factoren waarmee de dimensies van de originele
-   * afbeelding mee worden vermeningvuldigd voordat
-   * het wordt afgebeeld
+   * multiplication factors to scale original image before displaying
    */
   this.factor = {
     x: 0.00042 * this.scale,

@@ -1,14 +1,12 @@
 function Face(size) {
   /* @var scale
-   * dit zorgt ervoor dat het gezicht er op vershcillende schermen
-   * goed uitziet. Gebasseerd op de breedte en hoogte van het scherm
+   * scale the face to look good on different screen sizes
+   * based on screen width and height
    */
   this.scale = size;
-  // om cputijd te besparen wordt dit maar 1x gecalled. is eigenlijk beter om voor elke show() te doen.
+  // called once instead of every draw cycle as micro optimization
   imageMode(CENTER);
-  /* De ogen en de mond kunnen beter als 
-   * aparte objecten worden bijgehouden.
-   */
+  // keep track of eyes and mouth as different objects
   this.eyes = [
     new Eye(this.scale, 0.32, 0.28),
     new Eye(this.scale, 0.68, 0.28)

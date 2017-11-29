@@ -29,7 +29,7 @@ function fullScreen() {
 }
 
 /* @function preload
- * zorgt ervoor dat alle media geladen is voor setup()
+ * load some assets before calling setup()
  */
 function preload() {
   myFont = loadFont('fonts/robot01.ttf');
@@ -42,13 +42,13 @@ function preload() {
   Mouth.prototype.thinking = loadImage("img/mouth-thinking-min.png");
   Mouth.prototype.talking = [];
   for(var i = 0; i < 11; i++) {
-    // laad alle monden die nodig zijn voor de praat-animatie
+    // load images for speech animation
     Mouth.prototype.talking.push(loadImage("img/mouth-talking-" + i + "-min.png"));
   }
 }
 
 /* @function setup
- * p5.js called deze functie 1x, direct na @function preload.
+ * called directly after preload() by p5js
  */
 function setup() {
   const size = Math.min(window.screen.width, window.screen.height);
@@ -59,7 +59,7 @@ function setup() {
 }
 
 /* @function draw
- * p5.js tracht deze functie 60x/seconde te callen, kan in theorie ook minder vaak zijn.
+ * drawcycle, called Math.min(60, frameRate()) times per second
  */
 function draw() {
   background(0);
@@ -67,7 +67,7 @@ function draw() {
 }
 
 /* @function getRandomIntInclusive
- * returned een integer tussen de twee gespecificeerde waarden (inclusive, inclusive)
+ * get integer between @min and @max (inclusive, inclusive)
  */
 function getRandomIntInclusive(min, max) {
   min = Math.ceil(min);

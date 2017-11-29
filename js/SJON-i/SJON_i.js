@@ -3,42 +3,37 @@ function SJON_i() {
     
   }
   /* @const size
-   * hoe groot kan het gezicht zijn?
+   * how big should face be?
    */
   const size = Math.min(width, height);
   this.speaking = false;
   /* @var face
-   * managed het gezicht
+   * manages face
    */
   this.face = new Face(size);
   /* @var actionsQueue
-   * houdt Action instanties vast, deze bezitten:
+   * holds actions, which possess:
    * @var creationFrame (when was action added)
-   * @var frameDuration (hoeveel frames vóór callback)
-   * @function cycle functie die elk frame wordt aangeroepen totdat frameDuration
-   * @function callback (wat moet er gebeuren na frameDuration frames?
-   *                     Na de callback wordt de action verwijderd.)
-   * NOTE: op dit moment is het een array, maar is het wel nodig om meerdere
-   * actions tegelijk vast te houden????
+   * @var frameDuration (how many frames before callback)
+   * @function cycle function called every frame until frameDuration
+   * @function callback (what should happen after action?
+   *                     Action is deleted after callback.)
+   * NOTE: currently array, but is is necessary to hold multiple actions at once?
    */
   this.actionsQueue = [];
   /* @var voice
-   * gebruikt om dingen te zeggen
+   * say stuff
    */
   this.voice = new Voice(this);
   /* @var ears
-   * gebruikt voor het luisteren
+   * listen to stuff
    */
   this.ears = new Ears(this);
-  /* @var usedJokes
-   * id's van grappen die deze SJON_i instance al verteld heeft
-   * NOTE @Daan: ik heb deze hier geplaatst omdat we in theorie meerdere SJON_i instances zouden kunnen hebben
-   */
-  this.usedJokes = [];
-  // hierin worden dingen zoals de naam enzo opgeslagen
+  // save name, age etc on user
   this.user = new Person();
   /* @var commands
-   * dit zijn de speech commands waarmee je tegen SJON_i kunt praten
+   * list of commands SJON-i understands
+   * TODO: translate to English
    */
   this.commands = [
     new Command(this, /(hallo|hey|hoi|hai|hi|yo|goede(middag|morgen|navond|ndag))( (johnny|sjoni|shani|sean))?/i, function(expr, rest, args) {
@@ -97,35 +92,6 @@ function SJON_i() {
   ];
 }
 
-// snelle functie om een grap te vertellen
-SJON_i.prototype.joke = function(prelude) {
-  this.loadJoke(this.selectRandomJokeId(), prelude);
-}
-
-/* @var jokeIdBoundaries
- * min en max id's van grappen (toch? @Daan)
- * staat in proto omdat t voor elke sjoni 't zelfde is
- */
-SJON_i.prototype.jokeIdBoundaries = [1, 48];
-
-SJON_i.prototype.selectRandomJokeId = function() {
-  // IDEA @Daan: kan dit niet met een do{}while()?
-  const number = getRandomIntInclusive(SJON_i.prototype.jokeIdBoundaries[0], SJON_i.prototype.jokeIdBoundaries[1]);
-  var used = false;
-  for (var i = 0; i < this.usedJokes.length; i++) {
-    used = this.usedJokes[i] === number || used;
-  }
-  if (!used) {
-    return number;
-  } else {
-    if (this.usedJokes.length === SJON_i.prototype.jokeIdBoundaries[1] - SJON_i.prototype.jokeIdBoundaries[0] + 1) {
-      this.usedJokes = [];
-    }
-    // restart
-    return SJON_i.prototype.selectRandomJokeId();
-  }
-}
-
 /* @function trigger
  * voor debugging
  */
@@ -145,11 +111,11 @@ SJON_i.prototype.retryRecog = function(type) {
   console.log("Failed recognition type " + type);
   switch(type) {
     case 1:
-      // worst case, geen recognition
+      // worst case, no recognition
       this.say(["Sorry, ik kon je niet verstaan!", "Probeer duidelijker te spreken."], 220, this);
       break;
     case 2:
-      // wel recognition, geen match in de commandos
+      // recognition, but no match in SJON-i commands
       this.say(["Ik begrijp je niet!", "Probeer het op een andere manier te zeggen!"], 220, this);
       break;
     default:
@@ -157,44 +123,11 @@ SJON_i.prototype.retryRecog = function(type) {
   }
 }
 
-SJON_i.prototype.loadJoke = function(jokeId, prelude) {
-  // lelijk, maar is nodig omdat de scope in onreadystatechange anders is.
-  var instance = this;
-  var xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function () {
-      if (xhttp.readyState == 4 && xhttp.status == 200) {
-        instance.tellJoke(JSON.parse(xhttp.responseText), jokeId, prelude);
-      } else if (xhttp.status >= 300) {
-        // error
-        this.errorRetrievingJoke();
-      }
-  };
-  xhttp.open('GET', 'http://dvelthuis.informatica.bc-enschede.nl/SJON-i/grap.php?grapid=' + jokeId, true);
-  xhttp.send();
-}
-
-SJON_i.prototype.tellJoke = function(responseObj, jokeId, prelude) {
-  if (typeof jokeId !== "undefined") {
-    // @Daan hierheen verplaatst omdat we pas op dit punt zeker weten dat het vertelt zal worden
-    this.usedJokes.push(jokeId);
-  }
-  var texts = [responseObj.setup, responseObj.clue];
-  if(typeof prelude !== "undefined") {
-    texts.unshift(prelude);
-  }
-  this.voice.say(texts, 1000);
-}
-
-SJON_i.prototype.errorRetrievingJoke = function() {
-  this.say(["Sorry, ik kon eventjes geen grap bedenken. Vraag het me later nog eens!"], 0);
-}
-
 SJON_i.prototype.language = "nl-NL";
 
 
 /* @var debug
- * gebruikt om extra dingen te tonen in de
- * development fase.
+ * used for development
  */
 SJON_i.prototype.debug = false;
 
@@ -202,7 +135,7 @@ SJON_i.prototype.debug = false;
 SJON_i.prototype.cycle = function() {
     this.update();
     this.show();
-    // volgende lines zijn voor wat randomness
+    // add some pseudorandomness to SJON-i's behaviour
     if (this.actionsQueue.length === 0 && !this.speaking) {
       if (Math.random() < 0.001) {
         this.blink(17);
@@ -212,7 +145,7 @@ SJON_i.prototype.cycle = function() {
         this.smile(60);
       }
     }
-    // voor debugger
+    // for debugger
     function y(i) {
       return 20 + 20 * i;
     }
@@ -229,8 +162,7 @@ SJON_i.prototype.cycle = function() {
     }
   }
   /* @function think
-   * laat sjoni denken
-   * IDEA: dit verplaatsen naar sjoni.face???
+   * make SJON-i think
    */
 SJON_i.prototype.think = function(duration) {
   this.actionsQueue.push(new Action(this, function() {
@@ -241,11 +173,11 @@ SJON_i.prototype.think = function(duration) {
 }
 
 /* @function talk
- * laat sjoni's mond bewegen
- * NOTE: het daadwerkelijke spreken wordt hier niet geregeld
+ * move mouth
+ * NOTE: actual speech synthesis not taken care of in this scope
  */
 SJON_i.prototype.talk = function() {
-  // de animatie wordt verzorgd in @function Mouth.prototype.show
+  // animation taken care of in @function Mouth.prototype.show
   this.face.mouth.emotion = "talking";
   this.speaking = true;
 }
@@ -255,8 +187,7 @@ SJON_i.prototype.say = function(texts, timeout, sjoniInst, callback) {
 }
 
 /* @function blink
- * laat sjoni knipogen
- * IDEA: dit verplaatsen naar sjoni.face???
+ * make SJON-i wink
  */
 SJON_i.prototype.blink = function(duration, eyeIndex) {
   if (typeof eyeIndex === "undefined") {
@@ -270,8 +201,7 @@ SJON_i.prototype.blink = function(duration, eyeIndex) {
 }
 
 /* @function smile
- * laat sjoni lachen
- * IDEA: dit verplaatsen naar sjoni.face???
+ * make SJON-i laugh
  */
 SJON_i.prototype.smile = function(duration) {
   this.actionsQueue.push(new Action(this, function() {
@@ -282,7 +212,7 @@ SJON_i.prototype.smile = function(duration) {
 }
 
 /* @function set
- * reset sjoni weer naar z'n neutrale "state"
+ * reset to neutral state
  */
 SJON_i.prototype.setEmotion = function(emotion, eyes, mouth, clearActions) {
   if (typeof eyes === "undefined" || eyes === true) {
@@ -303,9 +233,8 @@ SJON_i.prototype.setEmotion = function(emotion, eyes, mouth, clearActions) {
 }
 
 /* @function update
- * functie die de huidige emotie en teksten etc. updatet, dus 
- * als een tekst bijv. 10 pixels omhoog moet in 1 frame wordt dat
- * hier geregeld.
+ * update texts etc.
+ * for example: if a text should be moved up 10px in one drawcycle, it is taken care of here.
  */
 SJON_i.prototype.update = function() {
   for (var i = 0; i < this.actionsQueue.length; i++) {
@@ -317,8 +246,7 @@ SJON_i.prototype.update = function() {
 }
 
 /* @function show
- * deze functie laat daadwerkelijk de dingen zien
- * zoals het gezicht met huidige emotie en alle teksten
+ * display SJON-i
  */
 SJON_i.prototype.show = function() {
   this.face.show();

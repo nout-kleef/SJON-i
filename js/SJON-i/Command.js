@@ -23,7 +23,7 @@ Command.prototype.matches = function(expr) {
     var rest;
     for(var i = 1; i < match.length; i++) {
       if(!this.inPool(i)) {
-        // dit betekent dat het een onjuiste cpaturing group is
+        // means that this is an invalid capturing group
         continue;
       }
       if(typeof match[i] !== "undefined") {

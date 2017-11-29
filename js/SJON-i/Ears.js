@@ -23,38 +23,38 @@ Ears.prototype.listen = function() {
   } catch(e) {
     //console.warn("Recognition already started");
   }
-  //console.info("Begonnen met luisteren.");
+  //console.info("Started listening.");
 }
 
 Ears.prototype.recognition.onsoundstart = function() {
   this.hearingAudio = true;
-  //console.info("Audio: JA");
+  //console.info("Audio: YES");
 }
 
 Ears.prototype.recognition.onspeechstart = function() {
   this.hearingSpeech = true;
-  //console.info("Spraak: JA");
+  //console.info("Speech: YES");
 }
 
 Ears.prototype.recognition.onspeechend = function() {
   this.hearingSpeech = false;
-  //console.info("Spraak: NEE");
+  //console.info("Speech: NO");
 }
 
 Ears.prototype.recognition.onsoundend = function() {
   this.hearingAudio = false;
-  //console.info("Audio: NEE");
+  //console.info("Audio: NO");
 }
 
 Ears.prototype.recognition.onend = function() {
-  //console.info("Gestopt met luisteren.");
+  //console.info("Stopped listening.");
   if(Ears.prototype.retryType === 0) {
     sjoni.retryRecog(0);
   }
 }
 
 Ears.prototype.recognition.onnomatch = function() {
-  //console.log("Geen herkenning.");
+  //console.log("Failed speech recognition: no match.");
   sjoni.retryRecog(1);
 }
 
@@ -66,7 +66,7 @@ Ears.prototype.recognition.onresult = function(e) {
       document.getElementById("log1").innerHTML = e.results[0][0].transcript + "\n" + document.getElementById("log1").innerHTML;
     }
     if(!sjoni.trigger(e.results[0][0].transcript)) {
-      // geen match
+      // no match
       sjoni.retryRecog(2);
     }
   } else {

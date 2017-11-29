@@ -9,12 +9,12 @@ function Voice(sjoniInstance, pitch, rate) {
 Voice.prototype.speech = window.speechSynthesis;
 
 /* @var voices
- * statische lijst van stemmen waarvan een instantie er één kan hebben
+ * static list of voices of which one can be active at any given time
  */
 Voice.prototype.voices = Voice.prototype.speech.getVoices();
 
 populateVoiceList();
-// wait on voices to be loaded before fetching list
+// wait for voices to be loaded before fetching list
 Voice.prototype.speech.onvoiceschanged = populateVoiceList;
 
 function populateVoiceList() {
@@ -39,7 +39,7 @@ function populateVoiceList() {
 }
 
 /* @function getVoiceIndex(String lang)
- * Voice.prototype.voices is een array, we zoeken de bijbehorende index voor voice
+ * Voice.prototype.voices is an array, get matching index of voice
  * returns: int index
  */
 Voice.prototype.getVoiceIndex = function(lang) {
@@ -54,25 +54,18 @@ Voice.prototype.getVoiceIndex = function(lang) {
 }
 
 /* @function say
- * statische functie waarmee een Voice kan "spreken"
+ * static function to allow Voice to synthesize speech
  */
 Voice.prototype.say = function(texts, timeout, sjoniInst, callback) {
   console.info("" + texts[0]);
   var t = this;
-  // maak nieuwe utterance aan
   var utterThis = new SpeechSynthesisUtterance(texts[0]);
-  // stel stem in
   utterThis.voice = Voice.prototype.voices[t.voiceIndex];
-  // stel pitch in
   utterThis.pitch = t.pitch;
-  // stel snelheid in
   utterThis.rate = t.rate;
-  // TODO: pauzeer de oren van SJON_i
-  // zorg voor de praat-animatie
-  // TODO: op dit moment staat er letterlijk "sjoni" in de code.
-  // Dat mag natuurlijk niet omdat we hiet nooit zeker weten of sjoni al wel bestaat...
+  // TODO: pause SJON-i's ears=
+  // TODO: OOP sjoni. We should assume more SJON_i instances exist
   utterThis.onstart = utterThis.onresume = function() {
-    // begin met praten
     sjoni.talk();
   }
   utterThis.onend = function() {
@@ -87,17 +80,16 @@ Voice.prototype.say = function(texts, timeout, sjoniInst, callback) {
       }, (typeof timeout === "undefined" ? 1000 : timeout));
     } else {
       if(typeof callback === "function") {
-        // klaar met texts, callback
+        // done with texts, callback
         callback(sjoniInst);
       }
       t.parent.ears.listen();
     }
   }
   utterThis.onpause = utterThis.onerror = function() {
-    // stop met praten
+    // stop talking
     sjoni.setEmotion("neutral");
   }
-  // spreek het uit
   Voice.prototype.speech.speak(utterThis);
-  // TODO: hervat de oren van SJON_i
+  // TODO: resume SJON-i's ears
 }

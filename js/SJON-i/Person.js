@@ -1,8 +1,9 @@
 function Person() {
   this.name;
   this.age;
-  // kunnen ook weer Persons worden. wordt niet direct gedaan omdat er dan
-  // oneindig veel Persons worden gemaakt (denk ik).
+  /* father and mother can be independent Peron instances, 
+   * but initializing them to Peron instances results in infinite call stack
+   */
   this.father;
   this.mother;
 }
