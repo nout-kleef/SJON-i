@@ -1,0 +1,25 @@
++---------------------------------------------------------------------------------------------+
+|                                           TASK BOARD                                        |
++-----------------------------------------------------+------+--------+------------+----------+
+| TAAK BESCHRIJVING                                   | DONE |  DUUR  | FINISHDATE |  AUTEUR  |
++-----------------------------------------------------+------+--------+------------+----------+
+| Task bord gemaakt                                   |  1   | 0h 15m |  01/03/17  |   Nout   |
+| Software:                                           |  0   |        |            |          |
+|   - Visueel:                                        |  0   |        |            |          |
+|      - Opzet gemaakt van de "classes"               |  1   | 1h 50m |  01/03/17  |   Nout   |
+|      - Mooie mond, niet zo'n skere rechthoek        |  0   |        |            |          |
+|      - Ogen animeerbaar maken (voor knipoog etc.)   |  0   |        |            |          |
+|      - Mond animeerbaar maken (voor lachen etc.)    |  0   |        |            |          |
+|   - Stembediening:                                  |  0   |        |            |   Nout   |
+|      - API zoeken                                   |  0   |        |            |   Nout   |
+|      - API verwerken in SJON_i class                |  0   |        |            |   Nout   |
+|      - response van API als tekst laten zien        |  0   |        |            |          |
+|      - response van SJON-i laten zien               |  0   |        |            |          |
+| Robot:                                              |  0   |        |            |  Platon  |
+|   - behuizing                                       |  1   | 2h 00m |  01/03/17  |  Platon  |
+|   - telefoonhouder maken                            |  0   |        |            |  Platon  |
+|   - powerbank inbouwen                              |  0   |        |            |  Platon  |
+| Verslag:                                            |  0   |        |            | alledrie |
+|   - versie 1                                        |  1   | ?h ??m |  19/02/17  | alledrie |
+|   - titelblad                                       |  1   | ?h ??m |  01/03/17  |   Daan   |
++-----------------------------------------------------+------+--------+------------+----------+
