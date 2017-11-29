@@ -1,7 +1,7 @@
 # SJON-i
 SJON-i is meant to be executed on a tablet mounted to a robot.
 Elderly people can talk to SJON-i when they're bored, want to laugh or need help with something.
-The incentive for SJON-i came from a school proiject, where the goal was to create telepresence to entertain the elderly.
+The incentive for SJON-i came from a school project, where the goal was to create telepresence to entertain the elderly.
 
 # How to install
 Installing SJON-i is quite easy.
