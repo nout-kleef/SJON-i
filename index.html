@@ -1,17 +1,11 @@
-<?php
-require_once "/home/nkleef/private/modOnly.php";
-?>
 <!DOCTYPE html />
-<html lang="nl">
+<html lang="EN-us">
   <head>
-    <base href="/SJON-i/" />
     <meta name="author" content="Nout Kleef">
-    <link rel="shortcut icon" href="/images/favicon.ico?v=2" />
+    <link rel="shortcut icon" href="favicon.ico?v=2" />
     <title>SJON-i</title>
-    <script src="//console.re/connector.js" data-channel="try-1e85-b6c5-a9dd" id="consolerescript"></script>
-    <script>console.re.log('remote log test');</script>
-    <script src="p5.min.js"></script>
-    <script src="handler.js"></script>
+    <script src="js/vendor/p5.min.js"></script>
+    <script src="js/SJON-i/handler.js"></script>
   </head>
   <body>
     <button onclick="fullScreen()">
@@ -61,14 +55,7 @@ require_once "/home/nkleef/private/modOnly.php";
       vertel grap
     </button>
     <select id="voiceSelect">
-      
     </select>
-    <button onclick="console.re.log(sjoni.ears)">
-      log sjoni
-    </button><br />
-    <button onclick="console.re.log(Ears)">
-      log Ears
-    </button><br />
     <h2>
       log
     </h2><br />
@@ -76,13 +63,13 @@ require_once "/home/nkleef/private/modOnly.php";
     
     </textarea>
   </body>
-  <script src="SJON_i.js"></script>
-  <script src="Eye.js"></script>
-  <script src="Command.js"></script>
-  <script src="Ears.js"></script>
-  <script src="Action.js"></script>
-  <script src="Mouth.js"></script>
-  <script src="Voice.js"></script>
-  <script src="Person.js"></script>
-  <script src="Face.js"></script>
+  <script src="js/SJON-i/SJON_i.js"></script>
+  <script src="js/SJON-i/Eye.js"></script>
+  <script src="js/SJON-i/Command.js"></script>
+  <script src="js/SJON-i/Ears.js"></script>
+  <script src="js/SJON-i/Action.js"></script>
+  <script src="js/SJON-i/Mouth.js"></script>
+  <script src="js/SJON-i/Voice.js"></script>
+  <script src="js/SJON-i/Person.js"></script>
+  <script src="js/SJON-i/Face.js"></script>
 </html>

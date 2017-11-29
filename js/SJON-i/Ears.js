@@ -23,46 +23,46 @@ Ears.prototype.listen = function() {
   } catch(e) {
     //console.warn("Recognition already started");
   }
-  //console.re.info("Begonnen met luisteren.");
+  //console.info("Begonnen met luisteren.");
 }
 
 Ears.prototype.recognition.onsoundstart = function() {
   this.hearingAudio = true;
-  //console.re.info("Audio: JA");
+  //console.info("Audio: JA");
 }
 
 Ears.prototype.recognition.onspeechstart = function() {
   this.hearingSpeech = true;
-  //console.re.info("Spraak: JA");
+  //console.info("Spraak: JA");
 }
 
 Ears.prototype.recognition.onspeechend = function() {
   this.hearingSpeech = false;
-  //console.re.info("Spraak: NEE");
+  //console.info("Spraak: NEE");
 }
 
 Ears.prototype.recognition.onsoundend = function() {
   this.hearingAudio = false;
-  //console.re.info("Audio: NEE");
+  //console.info("Audio: NEE");
 }
 
 Ears.prototype.recognition.onend = function() {
-  //console.re.info("Gestopt met luisteren.");
+  //console.info("Gestopt met luisteren.");
   if(Ears.prototype.retryType === 0) {
     sjoni.retryRecog(0);
   }
 }
 
 Ears.prototype.recognition.onnomatch = function() {
-  //console.re.log("Geen herkenning.");
+  //console.log("Geen herkenning.");
   sjoni.retryRecog(1);
 }
 
 Ears.prototype.recognition.onresult = function(e) {
-  console.re.log(e.results[0]);
+  console.log(e.results[0]);
   if(e.results[0].isFinal) {
     if(SJON_i.prototype.debug) {
-      console.re.log(e.results[0][0].transcript);
+      console.log(e.results[0][0].transcript);
       document.getElementById("log1").innerHTML = e.results[0][0].transcript + "\n" + document.getElementById("log1").innerHTML;
     }
     if(!sjoni.trigger(e.results[0][0].transcript)) {
@@ -70,6 +70,6 @@ Ears.prototype.recognition.onresult = function(e) {
       sjoni.retryRecog(2);
     }
   } else {
-   // console.re.log("Not final");
+   // console.log("Not final");
   }
 }

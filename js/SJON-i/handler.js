@@ -24,7 +24,7 @@ function RunPrefixMethod(obj, method) {
 function fullScreen() {
   if (!RunPrefixMethod(document, "FullScreen") && !RunPrefixMethod(document, "IsFullScreen")) {
     RunPrefixMethod(document.getElementById("defaultCanvas0"), "RequestFullScreen");
-    console.re.info("fullscreen requested.");
+    console.info("fullscreen requested.");
   }
 }
 
@@ -32,18 +32,18 @@ function fullScreen() {
  * zorgt ervoor dat alle media geladen is voor setup()
  */
 function preload() {
-  myFont = loadFont('robot01.ttf');
+  myFont = loadFont('fonts/robot01.ttf');
   // make sure the pictures are loaded
-  Eye.prototype.neutral = loadImage("pics/eye-neutral-min.png");
-  Eye.prototype.happy = loadImage("pics/eye-happy-min.png");
-  Eye.prototype.thinking = loadImage("pics/eye-thinking-min.png");
-  Mouth.prototype.neutral = loadImage("pics/mouth-neutral-min.png");
-  Mouth.prototype.happy = loadImage("pics/mouth-happy-min.png");
-  Mouth.prototype.thinking = loadImage("pics/mouth-thinking-min.png");
+  Eye.prototype.neutral = loadImage("img/eye-neutral-min.png");
+  Eye.prototype.happy = loadImage("img/eye-happy-min.png");
+  Eye.prototype.thinking = loadImage("img/eye-thinking-min.png");
+  Mouth.prototype.neutral = loadImage("img/mouth-neutral-min.png");
+  Mouth.prototype.happy = loadImage("img/mouth-happy-min.png");
+  Mouth.prototype.thinking = loadImage("img/mouth-thinking-min.png");
   Mouth.prototype.talking = [];
   for(var i = 0; i < 11; i++) {
     // laad alle monden die nodig zijn voor de praat-animatie
-    Mouth.prototype.talking.push(loadImage("pics/mouth-talking-" + i + "-min.png"));
+    Mouth.prototype.talking.push(loadImage("img/mouth-talking-" + i + "-min.png"));
   }
 }
 

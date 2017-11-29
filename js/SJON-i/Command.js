@@ -32,8 +32,8 @@ Command.prototype.matches = function(expr) {
       }
     }
     if(SJON_i.prototype.debug) {
-      console.re.log(match);
-      console.re.log("Expr '" + expr + "' matched this.e '" + this.e + "'.");
+      console.log(match);
+      console.log("Expr '" + expr + "' matched this.e '" + this.e + "'.");
     }
     if(typeof this.callback === "function") {
       this.callback(expr, rest, this.args);
@@ -41,7 +41,7 @@ Command.prototype.matches = function(expr) {
     return true;
   } else {
     if(SJON_i.prototype.debug) {
-      console.re.log("Expr '" + expr + "' did not match this.e '" + this.e + "'.");
+      console.log("Expr '" + expr + "' did not match this.e '" + this.e + "'.");
     }
     return false;
   }

@@ -142,7 +142,7 @@ SJON_i.prototype.trigger = function(trigger) {
 
 SJON_i.prototype.retryRecog = function(type) {
   return;
-  console.re.log("Failed recognition type " + type);
+  console.log("Failed recognition type " + type);
   switch(type) {
     case 1:
       // worst case, geen recognition

@@ -57,7 +57,7 @@ Voice.prototype.getVoiceIndex = function(lang) {
  * statische functie waarmee een Voice kan "spreken"
  */
 Voice.prototype.say = function(texts, timeout, sjoniInst, callback) {
-  console.re.info("" + texts[0]);
+  console.info("" + texts[0]);
   var t = this;
   // maak nieuwe utterance aan
   var utterThis = new SpeechSynthesisUtterance(texts[0]);
